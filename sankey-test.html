@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <meta charset="utf-8">
+  <title>CGT 470 Final Project &mdash; Sankey Diagram</title>
+</head>
+
+<style>
+
+.node rect {
+  cursor: move;
+  fill-opacity: .9;
+  shape-rendering: crispEdges;
+}
+
+.node text {
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff;
+}
+
+.link {
+  fill: none;
+  stroke: black;
+  stroke-opacity: .2;
+}
+
+.link:hover {
+  stroke-opacity: .5;
+}
+
+.attr_button{
+  margin-left: 10px;
+  margin-right: 3px;
+}
+
+</style>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a href="" class="navbar-brand">CGT 470 Final Project</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="sankey-test.html" class="nav-link active">Sankey Diagram</a>
+                <a href="dendrogramNew.html" class="nav-link">Dendrogram</a>
+                <a href="researchers.html" class="nav-link">Researchers</a>
+            </div>
+        </div>
+    </nav>
+
+  
+<div class = "container">    
+
+    <h1>Sankey Diagram</h1>
+    <h2>What factors makes a song successful?</h2>
+    <p>This diagram is interactive, the check boxes can be clicked to show/hide information in the visualization.  After clicking on a checkbox, click the update button to see the changes.  The visualization is also interactive in that the boxes with the category names (genres and success factors) can be dragged around the screen.</p>
+    <p>From this diagram we determined that Danceability and Energy are the two most important factors that make a song popular.</p>
+
+    <p style=" margin-top: 10px; margin-bottom: 0px; font-weight: bold;">Factors</p>
+    <p style="margin-bottom: 0px;">Below are a list of the music factors and their descriptions according to the 2018 Top Spotify Tracks dataset.</p>
+    <ul>
+      <li><strong>Acousticness:</strong> A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.</li>
+      <li><strong>Danceability:</strong> Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.</li>
+      <li><strong>Energy:</strong> Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.</li>
+      <li><strong>Instrumentalness:</strong> Predicts whether a track contains no vocals. “Ooh” and “aah” sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly “vocal”. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.</li>
+      <li><strong>Liveness:</strong> Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.</li>
+      <li><strong>Speechiness:</strong> Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.</li>
+    </ul>
+
+    <!-- Checkboxes -->
+
+    <p style=" margin-top: 10px; margin-bottom: 0px; font-weight: bold;">Genres</p>
+
+<div class="filter_options">
+  
+          <!--<p style="margin-bottom: 0px; font-weight: bold;">Factors</p>
+
+          <input class="attr_button" value="Acousticness" type="checkbox"
+                  checked="checked">Acousticness</input>
+          <input class="attr_button" value="Danceability" type="checkbox"
+                  checked="checked">Danceability</input>
+          <input class="attr_button" value="Energy" type="checkbox"
+                  checked="checked">Energy</input>
+          <input class="attr_button" value="Instrumentalness" type="checkbox"
+                  checked="checked">Instrumentalness</input>
+          <input class="attr_button" value="Liveness" type="checkbox"
+                  checked="checked">Liveness</input>
+          <input class="attr_button" value="Speechiness" type="checkbox"
+                  checked="checked">Speechiness</input>-->
+
+          <input class="attr_button" value="Afrobeat" type="checkbox"
+          checked="checked">Afrobeat</input>
+          <input class="attr_button" value="IndieAlternative" type="checkbox"
+          checked="checked">IndieAlternative</input>
+          <input class="attr_button" value="ContemporaryRnB" type="checkbox"
+          checked="checked">ContemporaryRnB</input>
+          <input class="attr_button" value="Country" type="checkbox"
+          checked="checked">Country</input>
+          <input class="attr_button" value="Dance" type="checkbox"
+          checked="checked">Dance</input>    
+          <input class="attr_button" value="DancePop" type="checkbox"
+          checked="checked">DancePop</input>   
+          <input class="attr_button" value="Disco" type="checkbox"
+          checked="checked">Disco</input>  
+          <input class="attr_button" value="Electro" type="checkbox"
+          checked="checked">Electro</input>  
+          <input class="attr_button" value="Electronic" type="checkbox"
+          checked="checked">Electronic</input>  
+          <input class="attr_button" value="ElectroPop" type="checkbox"
+          checked="checked">ElectroPop</input>  
+          <input class="attr_button" value="Folk" type="checkbox"
+          checked="checked">Folk</input>  
+          <input class="attr_button" value="Funk" type="checkbox"
+          checked="checked">Funk</input>  
+          <input class="attr_button" value="FutureBass" type="checkbox"
+          checked="checked">FutureBass</input>  
+          <input class="attr_button" value="HipHopRap" type="checkbox"
+          checked="checked">HipHopRap</input>
+          <input class="attr_button" value="IndiePop" type="checkbox"
+          checked="checked">IndiePop</input>  
+          <input class="attr_button" value="LatinPop" type="checkbox"
+          checked="checked">LatinPop</input> 
+          <input class="attr_button" value="OrchestralPop" type="checkbox"
+          checked="checked">OrchestralPop</input>  
+          <input class="attr_button" value="Pop" type="checkbox"
+          checked="checked">Pop</input>  
+          <input class="attr_button" value="PopRock" type="checkbox"
+          checked="checked">PopRock</input>  
+          <input class="attr_button" value="Soul" type="checkbox"
+          checked="checked">Soul</input>
+          <input class="attr_button" value="Reggaeton" type="checkbox"
+          checked="checked">Reggaeton</input>  
+          <input class="attr_button" value="Soul" type="checkbox"
+          checked="checked">Soul</input>  
+          <input class="attr_button" value="SynthPop" type="checkbox"
+          checked="checked">SynthPop</input>  
+          <input class="attr_button" value="Trap" type="checkbox"
+          checked="checked">Trap</input>  
+
+          <!-- select all boxes --> <br />
+          <input style="margin-top: 16px;" type="checkbox" name="select-all" id="select-all" checked="checked">Select All</input>
+
+
+          
+
+</div>
+
+<!--
+<div class="filter_options" style="hidden">
+  <input class="genre_button" value="Aftrobeat" type="checkbox" checked="checked">Aftrobeat</input>
+  <input class="genre_button" value="Country" type="checkbox" checked="checked">Country</input>
+  <input class="genre_button" value="Dance" type="checkbox" checked="checked">Dance</input>
+  <input class="genre_button" value="Dance-Pop" type="checkbox" checked="checked">Dance-Pop</input>
+  <input class="genre_button" value="Disco" type="checkbox" checked="checked">Disco</input>
+  <input class="genre_button" value="Electro" type="checkbox" checked="checked">Electro</input>
+</div>
+-->
+
+<button id="update" style="margin-top: 16px;">Update</button>
+
+
+<p id="chart">
+
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/sankey.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<!---------------------------->
+<!--New Script for SelectAll-->
+<!---------------------------->
+
+<script>
+// Listen for click on toggle checkbox
+$('#select-all').click(function(event) {   
+    if(this.checked) {
+        // Iterate each checkbox
+        $(':checkbox').each(function() {
+            this.checked = true;                        
+        });
+    } else {
+        $(':checkbox').each(function() {
+            this.checked = false;                       
+        });
+    }
+});
+</script>
+
+<script>
+
+	
+var units = "Widgets";
+
+var margin = {top: 10, right: 10, bottom: 10, left: 10},
+    width = 1000 - margin.left - margin.right,
+    height = 1500 - margin.top - margin.bottom;
+
+var formatNumber = d3.format(",.0f"),    // zero decimal places
+    format = function(d) { return formatNumber(d) + " " + units; },
+    color = d3.scale.category20();
+
+// append the svg canvas to the page
+var svg = d3.select("#chart").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", 
+          "translate(" + margin.left + "," + margin.top + ")");
+
+// Set the sankey diagram properties
+var sankey = d3.sankey()
+    .nodeWidth(36)
+    .nodePadding(40)
+    .size([width, height]);
+
+var path = sankey.link();
+
+// load the data
+d3.json("data_sankey.json", function(error, graph) {
+
+  sankey
+      .nodes(graph.nodes)
+      .links(graph.links)
+      .layout(32);
+
+// add in the links
+  var link = svg.append("g").selectAll(".link")
+      .data(graph.links)
+    .enter().append("path")
+      .attr("class", function(d) {
+        return "link " + d.source.name + " " + d.target.name;
+      })
+      .attr("d", path)
+      .style("stroke-width", function(d) { return Math.max(1, d.dy); })
+      .sort(function(a, b) { return b.dy - a.dy; })
+
+// add the link titles
+  link.append("title")
+        .attr( function(d) {
+          " " + d.source.name;
+        })
+        .text(function(d) {
+    		return d.source.name + " → " + d.target.name + 
+               "\n" + "Value: " + d.value; });
+
+// add in the nodes
+  var node = svg.append("g").selectAll(".node")
+      .data(graph.nodes)
+    .enter().append("g")
+      .attr("class", "node")
+      .attr("transform", function(d) { 
+		  return "translate(" + d.x + "," + d.y + ")"; })
+    .call(d3.behavior.drag()
+      .origin(function(d) { return d; })
+      .on("dragstart", function() { 
+		  this.parentNode.appendChild(this); })
+      .on("drag", dragmove));
+
+// add the rectangles for the nodes
+  node.append("rect")
+      .attr("height", function(d) { return d.dy; })
+      .attr("width", sankey.nodeWidth())
+      .style("fill", function(d) { 
+		  return d.color = color(d.name.replace(/ .*/, "")); })
+      .style("stroke", function(d) { 
+      return d3.rgb(d.color).darker(2); })
+      .attr("class", function(d){return d.name}) //{return d.name})  
+    .append("title")
+      .text(function(d) { 
+		  return d.name });
+
+// add in the title for the nodes
+  node.append("text")
+      .attr("x", -6)
+      .attr("y", function(d) { return d.dy / 2; })
+      .attr("dy", ".35em")
+      .attr("text-anchor", "end")
+      .attr("transform", null)
+      .text(function(d) { return d.name; })
+      .attr("class", function(d){return d.name})
+    .filter(function(d) { return d.x < width / 2; })
+      .attr("x", 6 + sankey.nodeWidth())
+      .attr("text-anchor", "start");
+
+// the function for moving the nodes
+var transition = d3.transition();
+
+  function dragmove(d) {
+    d3.select(this).attr("transform", 
+        "translate(" + d.x + "," + (
+                d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))
+            ) + ")");
+    sankey.relayout();
+    link.attr("d", path);
+  }
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//WORKING CODE!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  d3.select("button#update").on("click", function() {
+  var boxes = d3.selectAll("input");
+  boxes.each(function() {
+    if (this.checked) {
+        d3.selectAll("."+this.value).style("visibility", "visible");
+    }
+    else {
+        d3.selectAll("."+this.value).style("visibility", "hidden");
+    }
+  })
+  });
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//WORKING CODE!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+});
+
+</script>
+
+
+<!--  Filtering D3  
+
+https://stackoverflow.com/questions/35388595/filter-data-on-multiple-columns-with-checkboxes-d3
+
+-->
+</div>
+</body>
+</html>

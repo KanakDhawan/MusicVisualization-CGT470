@@ -1,0 +1,89 @@
+#header{
+    margin-top: 2%;
+    text-align: center;
+}
+
+#header h1 {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+#header h2 {
+    font-size: 35px;
+}
+
+#header h3 {
+    font-size: 20px;
+    font-style: italic;
+}
+
+.iFrame{
+    width: 100%;
+    height: 1650px;
+}
+
+
+#succFactors .myCheckbox{
+    margin: 3%;
+}
+
+.graph-image{
+padding: 2%;
+}
+
+
+/*****************************/
+/****RESEARCHERS CSS BEGIN****/
+/*****************************/
+.bioname {
+    font-size: 35px;
+    text-align: center;
+  }
+
+.biocontainer {
+    margin-bottom: 3%;
+  }     
+
+ .imgcontainer {
+    position: relative;
+    width: 50%;
+    margin-left: 25%;
+  }
+
+  .bioimage {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .biooverlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: rgba(44, 47, 51, 0.8);
+  }
+
+  .imgcontainer:hover .biooverlay {
+    opacity: 1;
+  }
+
+  .biotext {
+    color: white;
+    font-size: 1.1vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+/***************************/
+/****RESEARCHERS CSS END****/
+/***************************/

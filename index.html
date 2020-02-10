@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <!--scripts files-->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="https://d3js.org/d3-color.v1.min.js"></script>
+    <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+    <!-- CSS -->
+    <link rel='stylesheet' type='text/css' href="CSS/styles.css">
+    
+    <title>CGT 470 Final Project &mdash; Home</title>
+  </head>
+  <body>
+    <!----------------------------
+      -----NAV BAR CODE START-----
+      ---------------------------->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a href="" class="navbar-brand">CGT 470 Final Project</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav ml-auto">
+                  <a href="index.html" class="nav-link active">Home</a>
+                  <a href="sankey-test.html" class="nav-link">Sankey Diagram</a>
+                  <a href="dendrogramNew.html" class="nav-link">Dendrogram</a>
+                  <a href="researchers.html" class="nav-link">Researchers</a>
+              </div>
+          </div>
+      </nav>
+      <!--------------------------
+        -----NAV BAR CODE END-----
+        -------------------------->
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <!-----HEADER CODE------>
+          <div id = "header">
+              <h1>CGT 470 Final Project</h1>
+              <h2>Music in History:</h2>
+              <h3>An Analysis on Why People Graviate Toward Certain Music</h3>
+          </div>
+      <hr>
+          <h3>The Data Sets We Used</h3>
+          <a href="Data Sets/WeeklyHot100.csv" download><h4>Billboard Data</h4></a>
+          <a href="Data Sets/2018 top spotify tracks with factors.csv" download><h4>Spotify 2018 Data</h4></a>
+          <a href="Data Sets/2017 top spotify tracks with factors.csv" download><h4>Spotify 2017 Data</h4></a>
+
+          <hr>
+          <!-----PLAYLIST CODE------>
+          <h3>Billboard Hot 100</h3>
+          <p>The purpose of this project is to determine why songs make it to billboard top 100 or the top spotify songs.  People are attracted to these songs, but why?</p>
+          <div id = "spotify_playlist">
+          <iframe src="https://open.spotify.com/embed/playlist/6UeSakyzhiEt4NB3UAd6NQ" width="100%" height="280" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+          </div>
+          <p>This is a weekly updated spotify playlist that shows the top songs of that week.</p>
+
+          <hr>
+
+          <!-----SANKEY CODE------>
+          <!--<h3>What Makes a Song Popular?</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis harum voluptatum omnis recusandae accusamus fugiat maiores voluptatibus illum repellat quaerat magni, quis eum eius iure commodi tempora eligendi inventore obcaecati.</p>
+          <div><iframe  class = "iFrame" id = "sankeyDiagram" src="sankey-test.html"></iframe></div>
+
+          <br>-->
+          <!-----Network Diagram------>
+          
+         <!--- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis harum voluptatum omnis recusandae accusamus fugiat maiores voluptatibus illum repellat quaerat magni, quis eum eius iure commodi tempora eligendi inventore obcaecati.</p>
+          <div><iframe  class = "iFrame" id = "networkDiagram" src="dendrogram.html"></iframe></div>
+         -->
+          <hr>
+          <h3>Power BI Files</h3>
+          <a href="WeeklyHot100Viz.pbix" download><h4>Download Files</h4></a>
+          <div class = "row">
+                    <img src="images/image1.png" alt="" class="col-md-6 graph-image">
+          <br>
+          <img src="images/image2.png" alt="" class="col-md-6 graph-image">
+          <br>
+          <img src="images/image3.png" alt="" class="col-md-6 graph-image">
+          <br>
+          <img src="images/image4.png" alt="" class="col-md-6 graph-image">
+          </div>
+
+<hr>
+<br>
+<br>
+      </div>
+    </div>
+  </div>
+      
+  </body>
+
+  <footer>
+
+</footer>
+</html>

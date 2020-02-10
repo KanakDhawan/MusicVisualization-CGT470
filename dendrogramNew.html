@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>CGT 470 Final Project &mdash; Dendrogram</title>
+
+    <style>
+	
+	.node {
+		cursor: pointer;
+	}
+
+	.node circle {
+	  fill: #fff;
+	  stroke: steelblue;
+	  stroke-width: 3px;
+	}
+
+	.node text {
+	  font: 12px sans-serif;
+	}
+
+	.link {
+	  fill: none;
+	  stroke: #ccc;
+	  stroke-width: 2px;
+	}
+	
+	</style>
+		
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+
+  </head>
+
+  <body>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+				<a href="" class="navbar-brand">CGT 470 Final Project</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+					<div class="navbar-nav ml-auto">
+		
+					  <a href="index.html" class="nav-link">Home</a>
+					  <a href="sankey-test.html" class="nav-link">Sankey Diagram</a>
+					  <a href="dendrogramNew.html" class="nav-link active">Dendrogram</a>
+						<a href="researchers.html" class="nav-link">Researchers</a>
+					</div>
+				</div>
+			</nav>
+<div class = "container">
+
+	<h1>Network Diagram</h1>
+	<h2>Which genres have the highest and lowest success factor?</h2>
+	<p>This diagram is interactive, the dots can be clicked to reveal different songs in each success factor category.</p>
+	<p>From this diagram we determined that Emo Rap has been in the top three of the categories for 4/6 of the success factors.</p>
+
+	<button onclick="expandAll()">Expand All</button>
+	<button onclick="collapseAll()">Collapse All</button>
+
+
+<!-- load the d3.js library -->	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+	
+<script>
+
+var treeData = [
+  {
+    "name": "Spotify 2018",
+    "parent": "null",
+    "children": [
+      {
+        "name": "Danceability",
+        "parent": "Spotify 2018",
+        "children": [
+          {
+            "name": "Urban Contemporary",
+            "parent": "Danceability",
+			 "children": [
+          					{
+			  					"name": "Bella by Bryce Vine",
+            					"parent": "Urban Contemporary"
+			  				}
+						] 
+          },
+          {
+            "name": "Emo Rap",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "Jocelyn Flores by XXXtentacion",
+            					"parent": "Emo Rap"
+			  				}
+						] 
+          },
+			{
+            "name": "Trap",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "Walk it Talk it by Migos & Drake",
+            					"parent": "Trap"
+			  				}
+						] 
+          },
+			{
+            "name": "Latin Trap",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "I like it by Cardi B",
+            					"parent": "Latin Trap"
+			  				}
+						] 
+          },
+			{
+            "name": "Deep House",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "One kiss by Dua Lipa",
+            					"parent": "Deep House"
+			  				}
+						] 
+          },
+			{
+            "name": "Hip hop/Rap",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "Look Alive by Drake",
+            					"parent": "Hip hop/Rap"
+			  				}
+						] 
+          },
+			{
+            "name": "Reggaeton",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "Siguelo Bailando by Ozuna",
+            					"parent": "Reggaeton"
+			  				}
+						] 
+          },
+			{
+            "name": "Pop Rock",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "Believer by Imagine Dragons",
+            					"parent": "Pop Rock"
+			  				}
+						] 
+          },
+			{
+            "name": "Funk",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "Fell it still by Portugal. The man",
+            					"parent": "Funk"
+			  				}
+						] 
+          },
+			{
+            "name": "House",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "Jackie Chan by Post Malone & Preme",
+            					"parent": "House"
+			  				}
+						] 
+          },
+			{
+            "name": "Dance/Electronic",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "Te Bote by Nio Garcia",
+            					"parent": "Dance/Electronic"
+			  				}
+						] 
+          },
+			{
+            "name": "Balled",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "Changes by XXXtentacion",
+            					"parent": "Balled"
+			  				}
+						] 
+          },
+			{
+            "name": "R&B/Soul",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "Young Dumb and Broke by Khalid",
+            					"parent": "R&B/Soul"
+			  				}
+						] 
+          },
+			{
+            "name": "Pop",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "Girls Like You by Maroon 5",
+            					"parent": "Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Country Pop",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "Meant to Be (feat. Florida Georgia Line)",
+            					"parent": "Country Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Contemporary R&B",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "All the stars by Kendrick (ft SZA)",
+            					"parent": "Contemporary R&B"
+			  				}
+						] 
+          },
+			{
+            "name": "Synth-Pop",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "Thunder by Imagine Dragons",
+            					"parent": "Synth-Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Dance Hall",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "X by Nicky Jam",
+            					"parent": "Dancehall"
+			  				}
+						] 
+          },
+			{
+            "name": "Bounce",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "Nice for What by Drake",
+            					"parent": "Bounce"
+			  				}
+						] 
+          },
+			{
+            "name": "Dance",
+            "parent": "Danceability",
+				"children": [
+          					{
+			  					"name": "Silence by Khalid",
+            					"parent": "Country Pop"
+			  				}
+						] 
+          },
+			
+        ]
+      },
+      {
+        "name": "Energy",
+        "parent": "Spotify 2018",
+		   "children": [
+          {
+            "name": "Bounce",
+            "parent": "Energy",
+				"children": [
+          					{
+			  					"name": "Nice for What by Drake",
+            					"parent": "Bounce"
+			  				}
+						] 
+          },
+          {
+            "name": "Deep House",
+            "parent": "Energy",
+				"children": [
+          					{
+			  					"name": "One kiss by Dua Lipa",
+            					"parent": "Deep House"
+			  				}
+						] 
+          },
+			{
+            "name": "House",
+            "parent": "Energy",
+				"children": [
+          					{
+			  					"name": "Jackie Chan by Post Malone & Preme",
+            					"parent": "House"
+			  				}
+						] 
+          },
+			{
+            "name": "Funk",
+            "parent": "Energy",
+				"children": [
+          					{
+			  					"name": "Finesse by Bruno Mars(ft Cardi)",
+            					"parent": "Funk"
+			  				}
+						] 
+          },
+			{
+            "name": "Synth-Pop",
+            "parent": "Energy",
+				"children": [
+          					{
+			  					"name": "Thunder by Imagine Dragons",
+            					"parent": "Synth-Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Pop Rock",
+            "parent": "Energy",
+				"children": [
+          					{
+			  					"name": "Believer by Imagine Dragons",
+            					"parent": "Pop Rock"
+			  				}
+						] 
+          },
+			{
+            "name": "Dancehall",
+            "parent": "Energy",
+				"children": [
+          					{
+			  					"name": "X by Nicky Jam",
+            					"parent": "Dancehall"
+			  				}
+						] 
+          },
+			{
+            "name": "Country Pop",
+            "parent": "Energy",
+				"children": [
+          					{
+			  					"name": "Meant to Be (feat. Florida Georgia Line)",
+            					"parent": "Country Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Dance",
+            "parent": "Energy",
+				"children": [
+          					{
+			  					"name": "Silence by Khalid",
+            					"parent": "Country Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Dance Electronic",
+            "parent": "Energy",
+				"children": [
+          					{
+			  					"name": "These days by Rudimental",
+            					"parent": "Dance/Electronic"
+			  				}
+						] 
+          },
+			{
+            "name": "Latin Trap",
+            "parent": "Energy",
+				"children": [
+          					{
+			  					"name": "I like it by Cardi B",
+            					"parent": "Latin Trap"
+			  				}
+						] 
+          },
+			{
+            "name": "Pop",
+            "parent": "Energy",
+				"children": [
+          					{
+			  					"name": "Youngblood by 5 seconds of summer",
+            					"parent": "Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Hip-hop Rap",
+            "parent": "Energy",
+				"children": [
+          					{
+			  					"name": "Yes Indeed by lil Baby & Drake",
+            					"parent": "Hip-hop Rap"
+			  				}
+						] 
+          },
+			{
+            "name": "R&B/Soul",
+            "parent": "Energy",
+				"children": [
+          					{
+			  					"name": "Love lies by Khalid & Normani",
+            					"parent": "R&B/Soul"
+			  				}
+						] 
+          },
+			{
+            "name": "Contemporary R&B",
+            "parent": "Energy",
+				"children": [
+          					{
+			  					"name": "All the stars by Kendrick (ft SZA)",
+            					"parent": "Contemporary R&B"
+			  				}
+						] 
+          },
+			{
+            "name": "Trap",
+            "parent": "Energy",
+				"children": [
+          					{
+			  					"name": "Walk it Talk it by Migos & Drake",
+            					"parent": "Trap"
+			  				}
+						] 
+          },
+			{
+            "name": "Urban Contemporary",
+            "parent": "Energy",
+			 "children": [
+          					{
+			  					"name": "Bella by Bryce Vine",
+            					"parent": "Urban Contemporary"
+			  				}
+						] 
+          },
+			{
+            "name": "Emo-Rap",
+            "parent": "Energy",
+				"children": [
+          					{
+			  					"name": "Jocelyn Flores by XXXtentacion",
+            					"parent": "Emo-Rap"
+			  				}
+						] 
+          },
+			{
+            "name": "Balled",
+            "parent": "Energy",
+				"children": [
+          					{
+			  					"name": "Changes by XXXtentacion",
+            					"parent": "Balled"
+			  				}
+						] 
+          },
+			
+        ]
+		  
+      },
+		{
+        "name": "Loudness",
+        "parent": "Spotify 2018",
+		   "children": [
+          {
+            "name": "House",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "Jackie Chan by Post Malone & Preme",
+            					"parent": "House"
+			  				}
+						] 
+          },
+          {
+            "name": "Dance",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "Silence by Khalid",
+            					"parent": "Country Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Deep House",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "One kiss by Dua Lipa",
+            					"parent": "Deep House"
+			  				}
+						] 
+          },
+			{
+            "name": "Latin Trap",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "I like it by Cardi B",
+            					"parent": "Latin Trap"
+			  				}
+						] 
+          },
+			{
+            "name": "Pop Rock",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "Believer by Imagine Dragons",
+            					"parent": "Pop Rock"
+			  				}
+						] 
+          },
+			{
+            "name": "Reggaeton",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "Enchame la Calpa by Demi Lavato & Luis Fonse",
+            					"parent": "Reggaeton"
+			  				}
+						] 
+          },
+			{
+            "name": "Dance/Electronic",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "Happier by Marshmellow & Bastille",
+            					"parent": "Dance/Electronic"
+			  				}
+						] 
+          },
+			{
+            "name": "Synth Pop",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "Thunder by Imagine Dragons",
+            					"parent": "Synth-Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Funk",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "Finesse by Bruno Mars (ft Cardi B)",
+            					"parent": "Funk"
+			  				}
+						] 
+          },
+			{
+            "name": "Contemporary R&B",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "All the stars by Kendrick (ft SZA)",
+            					"parent": "Contemporary R&B"
+			  				}
+						] 
+          },
+			{
+            "name": "R&B/Soul",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "Call out my name by the Weeknd",
+            					"parent": "R&B/Soul"
+			  				}
+						] 
+          },
+			{
+            "name": "Pop",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "IDGAF by Dua Lipa",
+            					"parent": "Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Hip-Hop/Rap",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "Sicko Mode by Travis Scott",
+            					"parent": "Hip-hop Rap"
+			  				}
+						] 
+          },
+			{
+            "name": "Bounce",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "Nice for What by Drake",
+            					"parent": "Bounce"
+			  				}
+						] 
+          },
+			{
+            "name": "Country Pop",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "Meant to Be (feat. Florida Georgia Line)",
+            					"parent": "Country Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Urban Contemporary",
+            "parent": "Loudness",
+			 "children": [
+          					{
+			  					"name": "Bella by Bryce Vine",
+            					"parent": "Urban Contemporary"
+			  				}
+						] 
+          },
+			{
+            "name": "Synth-Pop",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "Thunder by Imagine Dragons",
+            					"parent": "Synth-Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Trap",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "Walk it Talk it by Migos & Drake",
+            					"parent": "Trap"
+			  				}
+						] 
+          },
+			{
+            "name": "Emo-Rap",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "Jocelyn Flores by XXXtentacion",
+            					"parent": "Emo-Rap"
+			  				}
+						] 
+          },
+			{
+            "name": "Balled",
+            "parent": "Loudness",
+				"children": [
+          					{
+			  					"name": "Changes by XXXtentacion",
+            					"parent": "Balled"
+			  				}
+						] 
+			},
+			]
+		},
+		{
+        "name": "Speechiness",
+        "parent": "Spotify 2018",
+		   "children": [
+          {
+            "name": "Emo Rap",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "Jocelyn Flores by XXXtentacion",
+            					"parent": "Emo Rap"
+			  				}
+						] 
+          },
+          {
+            "name": "Hip-hop/Rap",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "No Brainer by Justin Beiber & Khalid",
+            					"parent": "Hip-hop Rap"
+			  				}
+						] 
+          },
+			{
+            "name": "Latin Trap",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "I like it by Cardi B",
+            					"parent": "Latin Trap"
+			  				}
+						] 
+          },
+			{
+            "name": "Pop Rock",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "Believer by Imagine Dragons",
+            					"parent": "Pop Rock"
+			  				}
+						] 
+          },
+			{
+            "name": "Trap",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "Walk it Talk it by Migos & Drake",
+            					"parent": "Trap"
+			  				}
+						] 
+          },
+			{
+            "name": "Deep House",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "One kiss by Dua Lipa",
+            					"parent": "Deep House"
+			  				}
+						] 
+          },
+			{
+            "name": "Pop",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "Nevermind by Dennis Lloyd",
+            					"parent": "Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Reggaeton",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "Corazon by Nego & Maluma",
+            					"parent": "Reggaeton"
+			  				}
+						] 
+          },
+			{
+            "name": "Dance",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "Silence by Khalid",
+            					"parent": "Country Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Country Pop",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "Meant to Be (feat. Florida Georgia Line)",
+            					"parent": "Country Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Dance/Electronic",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "Te Bote by Nio Garcia",
+            					"parent": "Dance/Electronic"
+			  				}
+						] 
+          },
+			{
+            "name": "Funk",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "Finesse by Bruno Mars (ft Cardi B)",
+            					"parent": "Funk"
+			  				}
+						] 
+          },
+			{
+            "name": "Urban Contemporary",
+            "parent": "Speechiness",
+			 "children": [
+          					{
+			  					"name": "Bella by Bryce Vine",
+            					"parent": "Urban Contemporary"
+			  				}
+						] 
+          },
+			{
+            "name": "Bounce",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "Nice for What by Drake",
+            					"parent": "Bounce"
+			  				}
+						] 
+          },
+			{
+            "name": "Dancehall",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "X by Nicky Jam",
+            					"parent": "Dancehall"
+			  				}
+						] 
+          },
+			{
+            "name": "Contemporary R&B",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "Thunder by Imagine Dragons",
+            					"parent": "Synth-Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "House",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "Jackie Chan by Post Malone & Preme",
+            					"parent": "House"
+			  				}
+						] 
+          },
+			{
+            "name": "Synth-Pop",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "Thunder by Imagine Dragons",
+            					"parent": "Synth-Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "R&B/Soul",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "Love lies by Khalid & Normani",
+            					"parent": "R&B/Soul"
+			  				}
+						] 
+          },
+			{
+            "name": "Balled",
+            "parent": "Speechiness",
+				"children": [
+          					{
+			  					"name": "Changes by XXXtentacion",
+            					"parent": "Balled"
+			  				}
+						] 
+			},
+			]
+		},
+		{
+        "name": "Acousticness",
+        "parent": "Spotify 2018",
+		   "children": [
+          {
+            "name": "Balled",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "Changes by XXXtentacion",
+            					"parent": "Balled"
+			  				}
+						] 
+          },
+          {
+            "name": "Emo Rap",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "Jocelyn Flores by XXXtentacion",
+            					"parent": "Emo Rap"
+			  				}
+						] 
+          },
+			{
+            "name": "House",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "Jackie Chan by Post Malone & Preme",
+            					"parent": "House"
+			  				}
+						] 
+          },
+			{
+            "name": "Dance",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "Silence by Khalid",
+            					"parent": "Country Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Pop",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "Perfect Duet by Ed Sheeran & Beyonce",
+            					"parent": "Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Hip hop/Rap",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "Everybody dies in their nightmare",
+            					"parent": "Hip hop/Rap"
+			  				}
+						] 
+          },
+			{
+            "name": "Reggaeton",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "Corazon by Nigo & Maluma",
+            					"parent": "Reggaeton"
+			  				}
+						] 
+          },
+			{
+            "name": "Dance/Electronic",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "Te Bote by Nio Garcia",
+            					"parent": "Dance/Electronic"
+			  				}
+						] 
+          },
+			{
+            "name": "R&B/Soul",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "Call out my name by the Weeknd",
+            					"parent": "R&B/Soul"
+			  				}
+						] 
+          },
+			{
+            "name": "Urban Contemporary",
+            "parent": "Acousticness",
+			 "children": [
+          					{
+			  					"name": "Bella by Bryce Vine",
+            					"parent": "Urban Contemporary"
+			  				}
+						] 
+          },
+			{
+            "name": "Latin Trap",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "I like it by Cardi B",
+            					"parent": "Latin Trap"
+			  				}
+						] 
+          },
+			{
+            "name": "Bounce",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "Nice for What by Drake",
+            					"parent": "Bounce"
+			  				}
+						] 
+          },
+			{
+            "name": "Contemporary R&B",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "I fall Apart by Post Malone",
+            					"parent": "Contemporary R&B"
+			  				}
+						] 
+          },
+			{
+            "name": "Pop Rock",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "Believer by Imagine Dragons",
+            					"parent": "Pop Rock"
+			  				}
+						] 
+          },
+			{
+            "name": "Country Pop",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "Meant to Be (feat. Florida Georgia Line)",
+            					"parent": "Country Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Trap",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "Walk it Talk it by Migos & Drake",
+            					"parent": "Trap"
+			  				}
+						] 
+          },
+			{
+            "name": "Deep House",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "One kiss by Dua Lipa",
+            					"parent": "Deep House"
+			  				}
+						] 
+          },
+			{
+            "name": "Dance Hall",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "X by Nicky Jam",
+            					"parent": "Dancehall"
+			  				}
+						] 
+          },
+			{
+            "name": "Funk",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "Fell it still by Portugal. The man",
+            					"parent": "Funk"
+			  				}
+						] 
+          },
+			{
+            "name": "Synth Pop",
+            "parent": "Acousticness",
+				"children": [
+          					{
+			  					"name": "Thunder by Imagine Dragons",
+            					"parent": "Synth-Pop"
+			  				}
+						] 
+			},
+			]
+		},
+		{
+        "name": "Liveness",
+        "parent": "Spotify 2018",
+		   "children": [
+          {
+            "name": "Latin Trap",
+            "parent": "Liveness",
+				"children": [
+          					{
+			  					"name": "I like it by Cardi B",
+            					"parent": "Latin Trap"
+			  				}
+						] 
+          },
+          {
+            "name": "Dancehall",
+            "parent": "Liveness",
+				"children": [
+          					{
+			  					"name": "X by Nicky Jam",
+            					"parent": "Dancehall"
+			  				}
+						] 
+          },
+			{
+            "name": "Emo Rap",
+            "parent": "Liveness",
+				"children": [
+          					{
+			  					"name": "Jocelyn Flores by XXXtentacion",
+            					"parent": "Emo Rap"
+			  				}
+						] 
+          },
+			{
+            "name": "R&B/Soul",
+            "parent": "Liveness",
+				"children": [
+          					{
+			  					"name": "Young Dumb and Broke by Khalid",
+            					"parent": "R&B/Soul"
+			  				}
+						] 
+          },
+			{
+            "name": "Dance",
+            "parent": "Liveness",
+				"children": [
+          					{
+			  					"name": "Silence by Khalid",
+            					"parent": "Country Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Dance/Electronic",
+            "parent": "Liveness",
+				"children": [
+          					{
+			  					"name": "Him & I by G eazy and Halsey",
+            					"parent": "Dance/Electronic"
+			  				}
+						] 
+          },
+			{
+            "name": "Pop",
+            "parent": "Liveness",
+				"children": [
+          					{
+			  					"name": "God's Plan by Drake",
+            					"parent": "Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Synth Pop",
+            "parent": "Liveness",
+				"children": [
+          					{
+			  					"name": "Thunder by Imagine Dragons",
+            					"parent": "Synth-Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "Contemporary R&B",
+            "parent": "Liveness",
+				"children": [
+          					{
+			  					"name": "I fall Apart by Post Malone",
+            					"parent": "Contemporary R&B"
+			  				}
+						] 
+          },
+			{
+            "name": "Hip-hop/Rap",
+            "parent": "Liveness",
+				"children": [
+          					{
+			  					"name": "In my feelings by Drake",
+            					"parent": "Hip-hop Rap"
+			  				}
+						] 
+          },
+			{
+            "name": "Urban Contemporary",
+            "parent": "Liveness",
+			 "children": [
+          					{
+			  					"name": "Bella by Bryce Vine",
+            					"parent": "Urban Contemporary"
+			  				}
+						] 
+          },
+			{
+            "name": "Bounce",
+            "parent": "Liveness",
+				"children": [
+          					{
+			  					"name": "Nice for What by Drake",
+            					"parent": "Bounce"
+			  				}
+						] 
+          },
+			{
+            "name": "Trap",
+            "parent": "Liveness",
+				"children": [
+          					{
+			  					"name": "Walk it Talk it by Migos & Drake",
+            					"parent": "Trap"
+			  				}
+						] 
+          },
+			{
+            "name": "Balled",
+            "parent": "Liveness",
+				"children": [
+          					{
+			  					"name": "Changes by XXXtentacion",
+            					"parent": "Balled"
+			  				}
+						] 
+          },
+			{
+            "name": "Deep House",
+            "parent": "Liveness",
+				"children": [
+          					{
+			  					"name": "One kiss by Dua Lipa",
+            					"parent": "Deep House"
+			  				}
+						] 
+          },
+			{
+            "name": "Pop Rock",
+            "parent": "Liveness",
+				"children": [
+          					{
+			  					"name": "Believer by Imagine Dragons",
+            					"parent": "Pop Rock"
+			  				}
+						] 
+          },
+			{
+            "name": "Country Pop",
+            "parent": "Liveness",
+				"children": [
+          					{
+			  					"name": "Meant to Be (feat. Florida Georgia Line)",
+            					"parent": "Country Pop"
+			  				}
+						] 
+          },
+			{
+            "name": "House",
+            "parent": "Liveness",
+				"children": [
+          					{
+			  					"name": "Jackie Chan by Post Malone & Preme",
+            					"parent": "House"
+			  				}
+						] 
+          },
+			{
+            "name": "Funk",
+            "parent": "Liveness",
+				"children": [
+          					{
+			  					"name": "Fell it still by Portugal. The man",
+            					"parent": "Funk"
+			  				}
+						] 
+          },
+			]
+		}
+        ]
+	}
+];
+
+
+// ************** Generate the tree diagram	 *****************
+var margin = {top: 20, right: 120, bottom: 20, left: 120},
+	width = 2000 - margin.right - margin.left,
+	height = 1500 - margin.top - margin.bottom;
+	
+var i = 0,
+	duration = 750,
+	root;
+
+var tree = d3.layout.tree()
+	.size([height, width]);
+
+var diagonal = d3.svg.diagonal()
+	.projection(function(d) { return [d.y, d.x]; });
+
+var svg = d3.select("body").append("svg")
+	.attr("width", width + margin.right + margin.left)
+	.attr("height", height + margin.top + margin.bottom)
+  .append("g")
+	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+root = treeData[0];
+root.x0 = height / 2;
+root.y0 = 0;
+  
+update(root);
+
+d3.select(self.frameElement).style("height", "1000px");
+
+function update(source) {
+
+  // Compute the new tree layout.
+  var nodes = tree.nodes(root).reverse(),
+	  links = tree.links(nodes);
+
+  // Normalize for fixed-depth.
+  nodes.forEach(function(d) { d.y = d.depth * 180; });
+
+  // Update the nodes…
+  var node = svg.selectAll("g.node")
+	  .data(nodes, function(d) { return d.id || (d.id = ++i); });
+
+  // Enter any new nodes at the parent's previous position.
+  var nodeEnter = node.enter().append("g")
+	  .attr("class", "node")
+	  .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+	  .on("click", click);
+
+  nodeEnter.append("circle")
+	  .attr("r", 1e-6)
+	  .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+
+  nodeEnter.append("text")
+	  .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
+	  .attr("dy", ".35em")
+	  .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+	  .text(function(d) { return d.name; })
+	  .style("fill-opacity", 1e-6);
+
+  // Transition nodes to their new position.
+  var nodeUpdate = node.transition()
+	  .duration(duration)
+	  .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+
+  nodeUpdate.select("circle")
+	  .attr("r", 10)
+	  .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+
+  nodeUpdate.select("text")
+	  .style("fill-opacity", 1);
+
+  // Transition exiting nodes to the parent's new position.
+  var nodeExit = node.exit().transition()
+	  .duration(duration)
+	  .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+	  .remove();
+
+  nodeExit.select("circle")
+	  .attr("r", 1e-6);
+
+  nodeExit.select("text")
+	  .style("fill-opacity", 1e-6);
+
+  // Update the links…
+  var link = svg.selectAll("path.link")
+	  .data(links, function(d) { return d.target.id; });
+
+  // Enter any new links at the parent's previous position.
+  link.enter().insert("path", "g")
+	  .attr("class", "link")
+	  .attr("d", function(d) {
+		var o = {x: source.x0, y: source.y0};
+		return diagonal({source: o, target: o});
+	  });
+
+  // Transition links to their new position.
+  link.transition()
+	  .duration(duration)
+	  .attr("d", diagonal);
+
+  // Transition exiting nodes to the parent's new position.
+  link.exit().transition()
+	  .duration(duration)
+	  .attr("d", function(d) {
+		var o = {x: source.x, y: source.y};
+		return diagonal({source: o, target: o});
+	  })
+	  .remove();
+
+  // Stash the old positions for transition.
+  nodes.forEach(function(d) {
+	d.x0 = d.x;
+	d.y0 = d.y;
+  });
+}
+
+	// Function expand all and collapse all
+	function expand(d){   
+    var children = (d.children)?d.children:d._children;
+    if (d._children) {        
+        d.children = d._children;
+        d._children = null;       
+    }
+    if(children)
+      children.forEach(expand);
+}
+	function collapse(d) {
+  if (d.children) {
+    d._children = d.children;
+    d._children.forEach(collapse);
+    d.children = null;
+  }
+}
+
+function expandAll(){
+    expand(root); 
+    update(root);
+}
+
+function collapseAll(){
+    root.children.forEach(collapse);
+    collapse(root);
+    update(root);
+}
+	
+	
+	
+	
+	
+	
+// Toggle children on click.
+function click(d) {
+  if (d.children) {
+	d._children = d.children;
+	d.children = null;
+  } else {
+	d.children = d._children;
+	d._children = null;
+  }
+  update(d);
+}
+
+</script>
+
+</div>
+	
+  </body>
+</html>
